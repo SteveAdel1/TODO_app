@@ -16,7 +16,7 @@ class TaskItemWidget extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
       decoration: BoxDecoration(
-        color: vm.isDark()?Color(0xFF141922):Colors.white,
+        color: vm.isDark() ? Color(0xFF141922) : Colors.white,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(children: [
@@ -27,7 +27,9 @@ class TaskItemWidget extends StatelessWidget {
             color: theme.primaryColor,
           ),
         ),
-        const SizedBox(width: 20,),
+        const SizedBox(
+          width: 20,
+        ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -36,12 +38,15 @@ class TaskItemWidget extends StatelessWidget {
               style: theme.textTheme.bodyMedium
                   ?.copyWith(color: theme.primaryColor),
             ),
-            const SizedBox(height: 6,),
+            const SizedBox(
+              height: 6,
+            ),
             Row(
               children: [
                 Icon(
                   Icons.alarm,
-                  size: 20,color: vm.isDark() ? Colors.white : Colors.black,
+                  size: 20,
+                  color: vm.isDark() ? Colors.white : Colors.black,
                 ),
                 SizedBox(
                   width: 10,
@@ -55,12 +60,15 @@ class TaskItemWidget extends StatelessWidget {
         ),
         Spacer(),
         Container(
-            padding:  EdgeInsets.symmetric(horizontal: 25),
-            decoration:BoxDecoration(
-          color: theme.primaryColor,
-          borderRadius: BorderRadius.circular(10)
-        ),
-          child:Icon(Icons.check_rounded,size:35,color: Colors.white,))
+            padding: EdgeInsets.symmetric(horizontal: 25),
+            decoration: BoxDecoration(
+                color: theme.primaryColor,
+                borderRadius: BorderRadius.circular(10)),
+            child: Icon(
+              Icons.check_rounded,
+              size: 35,
+              color: Colors.white,
+            ))
       ]),
     );
   }

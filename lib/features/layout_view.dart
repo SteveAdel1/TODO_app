@@ -25,13 +25,13 @@ class LayoutView extends StatelessWidget {
         notchMargin: 8,
         shape: CircularNotchedRectangle(),
         child: BottomNavigationBar(
-            currentIndex : vm.currentIndex,
+            currentIndex: vm.currentIndex,
             onTap: vm.changeIndex,
             items: [
-          BottomNavigationBarItem(icon: Icon(Icons.list), label: "Tasks"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.settings), label: "Settings"),
-        ]),
+              BottomNavigationBarItem(icon: Icon(Icons.list), label: "Tasks"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.settings), label: "Settings"),
+            ]),
       ),
     );
   }

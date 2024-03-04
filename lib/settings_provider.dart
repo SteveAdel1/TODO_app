@@ -3,15 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:todo/features/settings/page/setting_view.dart';
 import 'package:todo/features/tasks/page/tasks_view.dart';
 
-class SettingsProvider extends ChangeNotifier{
+class SettingsProvider extends ChangeNotifier {
   String currentLanguage = "en";
-  ThemeMode currentThemeMode= ThemeMode.light;
+  ThemeMode currentThemeMode = ThemeMode.dark;
 
-  List<Widget>screens= [
-    TasksView(),
-    SettingsView()
-  ];
-
+  List<Widget> screens = [TasksView(), SettingsView()];
 
   changeLanguage(String newLanguage) {
     if (newLanguage == currentLanguage) {
@@ -24,22 +20,20 @@ class SettingsProvider extends ChangeNotifier{
   }
 
   int currentIndex = 0;
-  changeIndex(int index){
+  changeIndex(int index) {
     currentIndex = index;
     notifyListeners();
   }
 
-
-  bool isDark(){
+  bool isDark() {
     return currentThemeMode == ThemeMode.dark;
   }
-  changeThemeMode(ThemeMode newThemeMode) {
 
+  changeThemeMode(ThemeMode newThemeMode) {
     print(newThemeMode);
     if (newThemeMode == currentThemeMode) return;
     currentThemeMode = newThemeMode;
 
     notifyListeners();
   }
-
 }
