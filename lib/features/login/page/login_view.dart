@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/features/register/page/register_view.dart';
 import 'package:todo/settings_provider.dart';
-
 import '../../../core/widgets/custom_text_form_feild.dart';
 
 class LoginView extends StatefulWidget {
@@ -80,7 +79,6 @@ class _LoginViewState extends State<LoginView> {
 
                         return null;
                       },
-
 
                       keyboardType: TextInputType.emailAddress,
                       hint: "enter your E-mail",
