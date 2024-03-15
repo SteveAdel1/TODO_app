@@ -1,15 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
+import 'package:todo/features/login/page/login_view.dart';
+import 'package:todo/firebase_utils.dart';
 
 import '../../../core/widgets/custom_text_form_feild.dart';
 import '../../../settings_provider.dart';
 
 class RegisterView extends StatefulWidget {
-
   var  formKey = GlobalKey<FormState>();
   static const String routeName = "registerview";
-
+  var passwordController =TextEditingController();
+  var fullNameController =TextEditingController();
+  var emailController =TextEditingController();
+  var confirmPasswordController =TextEditingController();
    RegisterView({super.key});
 
   @override
@@ -18,26 +23,24 @@ class RegisterView extends StatefulWidget {
 
 class _RegisterViewState extends State<RegisterView> {
 
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     var vm = Provider.of<SettingsProvider>(context);
     var mediaQuery = MediaQuery.of(context).size;
-    var fullNameController =TextEditingController();
-    var emailController =TextEditingController();
-    var passwordController =TextEditingController();
-    var confirmPasswordController =TextEditingController();
+
     FocusNode focusNode = FocusNode();
-    focusNode.addListener(() { 
+    focusNode.addListener(() {
       if(focusNode.hasFocus){
         FocusManager.instance.primaryFocus?.unfocus();
       }
     });
-    return 
+    return
       Container(
         decoration: BoxDecoration(
             color: vm.isDark() ? Color(0xFF141922) : Color(0xFFDFECDB),
-            image: DecorationImage(
+            image:const DecorationImage(
                 image: AssetImage(
                   "assets/images/auth_pattern.png",
                 ),
@@ -82,7 +85,7 @@ class _RegisterViewState extends State<RegisterView> {
                           }
                           return null ;
                         },
-                        controller: fullNameController,
+                        controller: widget.fullNameController,
                         hint: "enter your name",
                         InputDecoration(),
                         suffixWidget: Icon(
@@ -114,7 +117,7 @@ class _RegisterViewState extends State<RegisterView> {
                           }
                           return null;
                         },
-                        controller: emailController,
+                        controller: widget.emailController,
                         onFieldSubmitted: (value) {
                           print(value);
                         },
@@ -150,10 +153,7 @@ class _RegisterViewState extends State<RegisterView> {
 
                           return null;
                         },
-                        controller: passwordController,
-                        onFieldSubmitted: (value) {
-                          print(passwordController.text);
-                        },
+                        controller: widget.passwordController,
                         isPassword: true,
                         maxLines: 1,
                         hint: "enter your password",
@@ -173,11 +173,12 @@ class _RegisterViewState extends State<RegisterView> {
                         style: theme.textTheme.bodyMedium,
                       ),
                       CustomTextField(
+                        //controller: confirmPasswordController,
                         onValidate: (value) {
                           if(value ==null || value.trim().isEmpty){
                             return "you must confirm your password";
                           }
-                          if(value != passwordController.text){
+                          if(value != widget.passwordController.text){
                             return "password is not matched";
                           }
                           return null ;
@@ -191,7 +192,7 @@ class _RegisterViewState extends State<RegisterView> {
                           color: vm.isDark() ? Colors.white : Colors.black,
                         ),
                       ),
-                      SizedBox(
+                     const SizedBox(
                         height: 40,
                       ),
                       //////////////////////////////////////////////////////////
@@ -202,7 +203,15 @@ class _RegisterViewState extends State<RegisterView> {
                               padding: EdgeInsets.symmetric(horizontal: 50)),
                           onPressed: () {
                             if(widget.formKey.currentState!.validate()){
-                              print("validate done");
+                              FirebaseUtils().createUserWithEmailAndPassword(
+                                  widget.emailController.text,
+                                  widget.passwordController.text).then((value) => (value) {
+                                    if(value){
+                                      EasyLoading.dismiss();
+                                      Navigator.pushNamedAndRemoveUntil(context, LoginView.routeName, (route) => false);
+                                    }
+                                  });
+
                             }
                           },
                           child: Row(
@@ -214,7 +223,7 @@ class _RegisterViewState extends State<RegisterView> {
                                     color: Colors.white,
                                     fontWeight: FontWeight.w500),
                               ),
-                              Icon(
+                             const Icon(
                                 Icons.arrow_forward_ios_rounded,
                                 color: Colors.white,
                               )

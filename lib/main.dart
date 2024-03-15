@@ -1,5 +1,8 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
+import 'package:todo/core/services/loadind_service.dart';
 import 'package:todo/features/login/page/login_view.dart';
 import 'package:todo/features/register/page/register_view.dart';
 import 'package:todo/features/spalsh/page/splash_view.dart';
@@ -15,9 +18,13 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(ChangeNotifierProvider(
-      create: (context) => SettingsProvider(), child: const MyApp()));
+  runApp(
+      ChangeNotifierProvider(
+      create: (context) => SettingsProvider(), child: const MyApp()),
+  );
+configLoading();
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -42,6 +49,8 @@ class MyApp extends StatelessWidget {
         LoginView.routeName: (context) =>  LoginView(),
         RegisterView.routeName: (context) =>  RegisterView(),
       },
+      builder: EasyLoading.init(
+          builder:BotToastInit(), ),
     );
   }
 }

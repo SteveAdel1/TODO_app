@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 class ApplicationThemeManager {
   static const Color primaryColor = Color(0xFF5D9CEC);
   static ThemeData lighttheme = ThemeData(
@@ -17,6 +16,7 @@ class ApplicationThemeManager {
       unselectedIconTheme: IconThemeData(color: Color(0xFFC8C9CB), size: 30),
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
+
       backgroundColor: primaryColor,
       //shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular())
     ),

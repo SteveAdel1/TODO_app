@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
+import 'package:todo/features/layout_view.dart';
 import 'package:todo/features/register/page/register_view.dart';
+import 'package:todo/firebase_utils.dart';
 import 'package:todo/settings_provider.dart';
 import '../../../core/widgets/custom_text_form_feild.dart';
 
 class LoginView extends StatefulWidget {
   static const String routeName = "LoginView";
+  var emailController =TextEditingController();
+  var passwordController =TextEditingController();
+
    LoginView({super.key});
 
   @override
@@ -21,12 +27,10 @@ class _LoginViewState extends State<LoginView> {
     var theme = Theme.of(context);
     var vm = Provider.of<SettingsProvider>(context);
     var mediaQuery = MediaQuery.of(context).size;
-    var emailController =TextEditingController();
-    var passwordController =TextEditingController();
     return Container(
       decoration: BoxDecoration(
           color: vm.isDark() ? Color(0xFF141922) : Color(0xFFDFECDB),
-          image: DecorationImage(
+          image:const DecorationImage(
               image: AssetImage(
                 "assets/images/auth_pattern.png",
               ),
@@ -64,7 +68,7 @@ class _LoginViewState extends State<LoginView> {
                       style: theme.textTheme.bodyMedium,
                     ),
                     CustomTextField(
-                      controller: emailController,
+                      controller: widget.emailController,
                       onValidate: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return "you must enter E-mail";
@@ -82,7 +86,7 @@ class _LoginViewState extends State<LoginView> {
 
                       keyboardType: TextInputType.emailAddress,
                       hint: "enter your E-mail",
-                      InputDecoration(),
+                    const  InputDecoration(),
                       suffixWidget: Icon(
                         Icons.mail_rounded,
                         color: vm.isDark() ? Colors.white : Colors.black,
@@ -98,6 +102,7 @@ class _LoginViewState extends State<LoginView> {
                       style: theme.textTheme.bodyMedium,
                     ),
                     CustomTextField(
+                      controller: widget.passwordController,
                       onValidate: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return "enter password";
@@ -118,13 +123,13 @@ class _LoginViewState extends State<LoginView> {
                       isPassword: true,
                       maxLines: 1,
                       hint: "enter your password",
-                      InputDecoration(),
+                     const InputDecoration(),
                       suffixWidget: Icon(
                         Icons.remove_red_eye_rounded,
                         color: vm.isDark() ? Colors.white : Colors.white,
                       ),
                     ),
-                    SizedBox(
+                   const SizedBox(
                       height: 40,
                     ),
                     /////////////////////////////////////////////////////////////
@@ -135,7 +140,15 @@ class _LoginViewState extends State<LoginView> {
                             padding: EdgeInsets.symmetric(horizontal: 50)),
                         onPressed: () {
                           if(formKey.currentState!.validate()){
-                            print("validate done ");
+                            FirebaseUtils().loginUserAccount(
+                              widget.emailController.text,
+                              widget.passwordController.text
+                            ).then((value){
+                              if(value==true){
+                                EasyLoading.dismiss();
+                                Navigator.pushReplacementNamed(context, LayoutView.routeName);
+                              }
+                            });
                           }
                         },
                         child: Row(
@@ -147,7 +160,7 @@ class _LoginViewState extends State<LoginView> {
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500),
                             ),
-                            Icon(
+                           const Icon(
                               Icons.arrow_forward_ios_rounded,
                               color: Colors.white,
                             )
@@ -160,7 +173,7 @@ class _LoginViewState extends State<LoginView> {
                       style: theme.textTheme.bodyMedium,
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     TextButton(
