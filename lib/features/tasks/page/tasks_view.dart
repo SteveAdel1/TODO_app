@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo/core/utils/extract_data.dart';
 import 'package:todo/features/tasks/widget/task_item_widget.dart';
+import 'package:todo/core/utils/firebase_utils.dart';
+import 'package:todo/models/task_model.dart';
 import 'package:todo/settings_provider.dart';
 
 class TasksView extends StatefulWidget {
@@ -71,25 +75,68 @@ class _TasksViewState extends State<TasksView> {
                 onDateChange: (selectedDate) {
                   setState(() {
                     foucsTime = selectedDate;
+                    vm.selectedDate = foucsTime;
                   });
                 },
               ),
             ],
           ),
         ),
-        // SizedBox(height: 60,),
-        Expanded(
-            child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            TaskItemWidget(),
-            TaskItemWidget(),
-            TaskItemWidget(),
-            TaskItemWidget(),
-            TaskItemWidget(),
-            TaskItemWidget(),
-          ],
-        ))
+        StreamBuilder<QuerySnapshot<TaskModel>>(
+          stream: FirebaseUtils()
+              .getStreamDataFromFirestore(extractDateTime(vm.selectedDate)),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return const Column(
+                children: [
+                  Text("Something went wrong"),
+                  Icon(Icons.refresh),
+                ],
+              );
+            }
+            ;
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            ;
+            var tasksList =
+                snapshot.data?.docs.map((e) => e.data()).toList() ?? [];
+            return Expanded(
+              child: ListView.builder(
+                padding: EdgeInsets.zero,
+                itemBuilder: (context, index) =>
+                    TaskItemWidget(taskModel: tasksList[index]),
+                itemCount: tasksList.length,
+              ),
+            );
+          },
+        )
+        // FutureBuilder<List<TaskModel>>(
+        //   future: FirebaseUtils().getDataFromFirestore(extractDateTime(vm.selectedDate)),
+        //   builder: (context, snapshot) {
+        //     if (snapshot.hasError) {
+        //       return Column(
+        //         children: [
+        //           Text("Somthing went wrong"),
+        //           Icon(Icons.refresh),
+        //         ],
+        //       );
+        //     }
+        //     ;
+        //     if (snapshot.connectionState == ConnectionState.waiting) {
+        //       return const Center(child: CircularProgressIndicator());
+        //     }
+        //     ;
+        //     var tasksList = snapshot.data ?? [];
+        //     return Expanded(
+        //       child: ListView.builder(
+        //         padding: EdgeInsets.zero,
+        //         itemBuilder: (context, index) => TaskItemWidget(taskModel: tasksList[index]),
+        //         itemCount: tasksList.length,
+        //       ),
+        //     );
+        //   },
+        // )
       ],
     );
   }

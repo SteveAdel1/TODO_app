@@ -3,7 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/features/layout_view.dart';
 import 'package:todo/features/register/page/register_view.dart';
-import 'package:todo/firebase_utils.dart';
+import 'package:todo/core/utils/firebase_utils.dart';
 import 'package:todo/settings_provider.dart';
 import '../../../core/widgets/custom_text_form_feild.dart';
 

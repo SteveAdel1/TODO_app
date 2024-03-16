@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo/firebase_utils.dart';
+import 'package:todo/features/task_bottom_sheet.dart';
+import 'package:todo/core/utils/firebase_utils.dart';
+import 'package:todo/models/task_model.dart';
 import 'package:todo/settings_provider.dart';
 
 class LayoutView extends StatefulWidget {
@@ -21,25 +23,32 @@ class _LayoutViewState extends State<LayoutView> {
       body: vm.screens[vm.currentIndex],
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        shape: RoundedRectangleBorder(side: BorderSide(width: 2,color: Colors.white),
+        shape: RoundedRectangleBorder(
+            side:const BorderSide(width: 2, color: Colors.white),
             borderRadius: BorderRadius.circular(100)),
         onPressed: () {
-          FirebaseUtils().addANewTask();
+          showModalBottomSheet(
+            backgroundColor: Colors.transparent,
+            context: context,
+            builder: (context) => TaskBottomSheet(),
+          );
+          // var data =TaskModel(title: "play footall", description: "go to club ", isDone: false, date: DateTime.now());
+          //FirebaseUtils().addANewTask(data);
         },
-        child:const Icon(
+        child: const Icon(
           Icons.add,
           size: 33,
         ),
       ),
       bottomNavigationBar: BottomAppBar(
         notchMargin: 8,
-        shape:const CircularNotchedRectangle(),
+        shape: const CircularNotchedRectangle(),
         child: BottomNavigationBar(
             currentIndex: vm.currentIndex,
             onTap: vm.changeIndex,
             items: const [
-               BottomNavigationBarItem(icon: Icon(Icons.list), label: "Tasks"),
-               BottomNavigationBarItem(
+              BottomNavigationBarItem(icon: Icon(Icons.list), label: "Tasks"),
+              BottomNavigationBarItem(
                   icon: Icon(Icons.settings), label: "Settings"),
             ]),
       ),

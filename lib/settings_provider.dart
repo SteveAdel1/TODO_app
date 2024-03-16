@@ -6,6 +6,20 @@ import 'package:todo/features/tasks/page/tasks_view.dart';
 class SettingsProvider extends ChangeNotifier {
   String currentLanguage = "en";
   ThemeMode currentThemeMode = ThemeMode.dark;
+  DateTime selectedDate = DateTime.now();
+
+  selectTaskDate(BuildContext context) async{
+    var currentSelectDate = await showDatePicker(context: context,
+        initialDate: selectedDate,
+        currentDate:DateTime.now() ,
+        firstDate: selectedDate,
+        lastDate: DateTime.now().add(Duration(days: 365)));
+
+    if(currentSelectDate == null) return;
+
+    selectedDate = currentSelectDate;
+    notifyListeners();
+  }
 
   List<Widget> screens = [TasksView(), SettingsView()];
 

@@ -21,17 +21,17 @@ class SettingsView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-          padding: EdgeInsets.symmetric(vertical: 60, horizontal: 40),
+          padding:const EdgeInsets.symmetric(vertical: 60, horizontal: 40),
           width: mediaQuery.width,
           height: mediaQuery.height * 0.2,
-          color: Color(0xFF5D9CEC),
+          color:const Color(0xFF5D9CEC),
           child: Text(
             "Settings",
             style: theme.textTheme.titleLarge,
           ),
         ),
         Padding(
-          padding: EdgeInsets.all(35),
+          padding:const EdgeInsets.all(35),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             Text(
@@ -73,9 +73,9 @@ class SettingsView extends StatelessWidget {
               initialItem: vm.isDark() ? "Dark" : "Light",
               decoration: CustomDropdownDecoration(
                 closedFillColor:
-                    vm.isDark() ? Color(0xFF141922) : Color(0xFFFFFFFF),
+                    vm.isDark() ? const Color(0xFF141922) :const Color(0xFFFFFFFF),
                 expandedFillColor:
-                    vm.isDark() ? Color(0xFF141922) : Color(0xFFFFFFFF),
+                    vm.isDark() ? const Color(0xFF141922) :const Color(0xFFFFFFFF),
               ),
               onChanged: (value) {
                 if (value == "Light") {

@@ -34,15 +34,17 @@ class SnackBarService{
                         bottomLeft: Radius.circular(12),
                       )),
                 ),
-                Expanded(
+               const Expanded(
                   flex: 1,
-                  child: Lottie.asset(
-                    "assets/icons/face_success_icon.json",
-                    repeat: false,
-                    height: 250,
-                    width: 250,
-                    fit: BoxFit.fitWidth,
-                  ),
+                   child:
+                   Icon(Icons.tag_faces_rounded,size: 25,)
+                  // Lottie.asset(
+                  //   "assets/icons/face_success_icon.json",
+                  //   repeat: false,
+                  //   height: 250,
+                  //   width: 250,
+                  //   fit: BoxFit.fitWidth,
+                  // ),
                 ),
                 Expanded(
                   flex: 3,
@@ -104,15 +106,17 @@ class SnackBarService{
                         bottomLeft: Radius.circular(12),
                       )),
                 ),
-                Expanded(
+                const Expanded(
                   flex: 1,
-                  child: Lottie.asset(
-                    "assets/icons/face_success_icon.json",
-                    repeat: false,
-                    height: 250,
-                    width: 250,
-                    fit: BoxFit.fitWidth,
-                  ),
+                  child:
+                    Icon(Icons.tag_faces_rounded,size: 25,)
+                  // Lottie.asset(
+                  //   "assets/icons/face_success_icon.json",
+                  //   repeat: false,
+                  //   height: 250,
+                  //   width: 250,
+                  //   fit: BoxFit.fitWidth,
+                  // ),
                 ),
                 Expanded(
                   flex: 3,
@@ -205,15 +209,17 @@ class SnackBarService{
                         bottomLeft: Radius.circular(12),
                       )),
                 ),
-                Expanded(
+                 const Expanded(
                   flex: 1,
-                  child: Lottie.asset(
-                    "assets/icons/wrong.json",
-                    repeat: true,
-                    height: 250,
-                    width: 250,
-                    fit: BoxFit.fitWidth,
-                  ),
+                   child:
+                     Icon(Icons.error_outline_rounded)
+                  // Lottie.asset(
+                  //   "assets/icons/face_wrong_icon.json",
+                  //   repeat: true,
+                  //   height: 250,
+                  //   width: 250,
+                  //   fit: BoxFit.fitWidth,
+                  // ),
                 ),
                 Expanded(
                   flex: 3,
@@ -276,14 +282,16 @@ class SnackBarService{
                     ),
                   ),
                 ),
-                Expanded(
+               const Expanded(
                   flex: 1,
-                  child: Lottie.asset(
-                    "assets/icons/face_wrong_icon.json",
-                    width: 200,
-                    height: 200,
-                    repeat: false,
-                  ),
+                  child:
+                  Icon(Icons.error_outline_rounded)
+                  // Lottie.asset(
+                  //   "assets/icons/face_wrong_icon.json",
+                  //   width: 200,
+                  //   height: 200,
+                  //   repeat: false,
+                  // ),
                 ),
                 Expanded(
                   flex: 3,
