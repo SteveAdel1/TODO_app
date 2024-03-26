@@ -5,6 +5,7 @@ import 'package:todo/core/utils/extract_data.dart';
 import 'package:todo/models/task_model.dart';
 
 class FirebaseUtils {
+
   CollectionReference<TaskModel> getCollectionRef() {
     var db = FirebaseFirestore.instance;
     return db.collection("tasks").withConverter<TaskModel>(

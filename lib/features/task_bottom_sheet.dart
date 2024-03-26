@@ -118,7 +118,7 @@ class _TaskBottomSheetState extends State<TaskBottomSheet> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
                       ),
-                      onPressed: () {
+                      onPressed:() {
                         if (formKey.currentState!.validate()) {
                           var data = TaskModel(
                               title: titleController.text,
@@ -133,7 +133,6 @@ class _TaskBottomSheetState extends State<TaskBottomSheet> {
                           }).onError((error, stackTrace) {
                             EasyLoading.dismiss();
                           });
-
                         }
                       },
                       child: Text(
