@@ -1,7 +1,10 @@
 # todo
 
 A new Flutter project.
-
+to create news tasks 
+edit tasks
+you can make check mark on tasks that you finished it
+delete tasks
 ## Getting Started
 
 This project is a starting point for a Flutter application.
